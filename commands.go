@@ -4,9 +4,18 @@ import "github.com/urfave/cli"
 
 var commands = []cli.Command{
 	{
-		Name:    "make",
-		Aliases: []string{"m", "mk"},
-		Usage:   "Make a new temporary directory",
+		Name:      "make",
+		Aliases:   []string{"m", "mk"},
+		Usage:     "Make a new temporary directory",
+		ArgsUsage: "[-n] [name]",
+		Flags: []cli.Flag{
+			cli.StringFlag{
+				Name:  "name, n",
+				Value: "tmp",
+				Usage: "Directory `name`",
+			},
+		},
+		Action: makeDir,
 	},
 	{
 		Name:    "remove",
