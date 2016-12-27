@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/urfave/cli"
 )
@@ -15,8 +16,26 @@ func makeDir(c *cli.Context) error {
 	}
 
 	name := c.String("name")
+	path := dir + "/"
+	_, err := os.Stat(path)
+	if os.IsNotExist(err) {
+		err := os.MkdirAll(path, 0644)
+		if err != nil {
+			return fmt.Errorf("cannot create directories: " + path)
+		}
+	}
 
-	fmt.Println("directory: " + dir + " name: " + name)
+	_, err = os.Stat(path + name)
+	if err == nil {
+		return fmt.Errorf("target directory name " + path + name + " is exists")
+	}
+
+	err = os.Mkdir(path+name, 0644)
+	if err != nil {
+		return fmt.Errorf("cannot create the temporary directory: ", err)
+	}
+
+	fmt.Println("directory: " + dir + " name: " + name + " created.")
 
 	return nil
 }
