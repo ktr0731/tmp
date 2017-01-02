@@ -1,10 +1,24 @@
 package main
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/urfave/cli"
 )
+
+const dirName = ".tmp-cli"
+
+func init() {
+	_, err := os.Stat("~/" + dirName)
+	if os.IsNotExist(err) {
+		err := os.Mkdir(dirName, 0644)
+		if err != nil {
+			fmt.Fprintln(os.Stderr, "cannot create directory "+dirName+": "+err.Error())
+			os.Exit(1)
+		}
+	}
+}
 
 func main() {
 	app := cli.NewApp()
