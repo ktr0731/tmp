@@ -24,8 +24,6 @@ func parseArguments(c *cli.Context) (*item, error) {
 	path := "."
 	if c.NArg() == 1 {
 		path = c.Args()[0]
-	} else if c.NArg() != 0 {
-		return nil, fmt.Errorf("invalid arguments\nUsage: tmp make " + c.Command.ArgsUsage)
 	}
 
 	name := c.String("name")
