@@ -17,7 +17,7 @@ type item struct {
 }
 
 func (i *item) path() string {
-	return i.dir + i.name
+	return filepath.Join(i.dir, i.name)
 }
 
 func parseArguments(c *cli.Context) (*item, error) {
@@ -27,20 +27,20 @@ func parseArguments(c *cli.Context) (*item, error) {
 	}
 
 	name := c.String("name")
-	_, err := os.Stat(path + "/")
+	_, err := os.Stat(path)
 	if os.IsNotExist(err) {
-		err := os.MkdirAll(path+"/", 0755)
+		err := os.MkdirAll(path, 0755)
 		if err != nil {
 			return nil, fmt.Errorf("cannot create directories: " + err.Error())
 		}
 	}
 
-	_, err = os.Stat(path + "/" + name)
+	_, err = os.Stat(filepath.Join(path, name))
 	if err == nil {
-		return nil, fmt.Errorf("target directory name " + path + "/" + name + " is exists")
+		return nil, fmt.Errorf("target directory name " + filepath.Join(path, name) + " is exists")
 	}
 
-	return &item{name: name, dir: path + "/"}, nil
+	return &item{name: name, dir: path}, nil
 }
 
 func register(path string) error {

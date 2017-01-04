@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/user"
+	"path/filepath"
 
 	"github.com/urfave/cli"
 )
@@ -12,13 +13,13 @@ const dirName = ".tmp-cli"
 
 func init() {
 	user, _ := user.Current()
-	tmpCLIPath := user.HomeDir + "/"
 
-	_, err := os.Stat(tmpCLIPath + dirName)
+	path := filepath.Join(user.HomeDir, dirName)
+	_, err := os.Stat(path)
 	if os.IsNotExist(err) {
-		err := os.Mkdir(tmpCLIPath+dirName, 0755)
+		err := os.Mkdir(path, 0755)
 		if err != nil {
-			fmt.Fprintln(os.Stderr, "cannot create directory "+tmpCLIPath+dirName+": "+err.Error())
+			fmt.Fprintln(os.Stderr, "cannot create directory "+path+": "+err.Error())
 			os.Exit(1)
 		}
 	}
