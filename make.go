@@ -46,7 +46,7 @@ func parseArguments(c *cli.Context) (*item, error) {
 func register(path string) error {
 	user, _ := user.Current()
 
-	f, err := os.OpenFile(user.HomeDir+"/"+dirName+"/"+configFileName, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
+	f, err := os.OpenFile(filepath.Join(user.HomeDir, dirName, configFileName), os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
 	if err != nil {
 		return fmt.Errorf("cannot register the directory: %s", err)
 	}

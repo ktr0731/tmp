@@ -26,5 +26,6 @@ var commands = []cli.Command{
 		Name:    "list",
 		Aliases: []string{"l", "ls"},
 		Usage:   "Show all tracking temporary directories",
+		Action:  list,
 	},
 }
