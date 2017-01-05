@@ -1,11 +1,11 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
-	"io/ioutil"
+	"os"
 	"os/user"
 	"path/filepath"
-	"strings"
 
 	"github.com/urfave/cli"
 )
@@ -13,14 +13,18 @@ import (
 func list(c *cli.Context) error {
 	user, _ := user.Current()
 
-	content, err := ioutil.ReadFile(filepath.Join(user.HomeDir, dirName, configFileName))
+	f, err := os.Open(filepath.Join(user.HomeDir, dirName, configFileName))
 	if err != nil {
-		return err
+		return fmt.Errorf("cannot open tmp config file: %s", err.Error())
 	}
 
-	for _, line := range strings.Split(string(content), "\n") {
-		fmt.Println(line)
+	list := ""
+	s := bufio.NewScanner(f)
+	for s.Scan() {
+		list += s.Text() + "\n"
 	}
+
+	fmt.Println(list)
 
 	return nil
 }
