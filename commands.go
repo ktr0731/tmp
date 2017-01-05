@@ -27,5 +27,11 @@ var commands = []cli.Command{
 		Aliases: []string{"l", "ls"},
 		Usage:   "Show all tracking temporary directories",
 		Action:  list,
+		Flags: []cli.Flag{
+			cli.BoolTFlag{
+				Name:  "number, n",
+				Usage: "Show identication `number`",
+			},
+		},
 	},
 }
