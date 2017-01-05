@@ -28,7 +28,7 @@ var commands = []cli.Command{
 		Usage:   "Show all tracking temporary directories",
 		Action:  list,
 		Flags: []cli.Flag{
-			cli.BoolTFlag{
+			cli.BoolFlag{
 				Name:  "number, n",
 				Usage: "Show identication `number`",
 			},

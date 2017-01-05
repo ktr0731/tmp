@@ -19,9 +19,18 @@ func list(c *cli.Context) error {
 	}
 
 	list := ""
+	index := 0
 	s := bufio.NewScanner(f)
 	for s.Scan() {
-		list += s.Text() + "\n"
+		line := s.Text()
+		if c.BoolT("number") {
+			line = fmt.Sprintf("[%d] ", index) + line
+		}
+		line += "\n"
+
+		list += line
+
+		index++
 	}
 
 	fmt.Println(list)
