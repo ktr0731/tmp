@@ -1,5 +1,5 @@
 # tmp
-[![CircleCI](https://circleci.com/gh/lycoris0731/clip.svg?style=svg&circle-token=0e33c0cfb7bb1105ff821abbe845483d269145f8)](https://circleci.com/gh/lycoris0731/clip)
+[![CircleCI](https://circleci.com/gh/lycoris0731/tmp.svg?style=svg&circle-token=b6ab9824b5dd9a252a19d98c64a3aaa31361f2db)](https://circleci.com/gh/lycoris0731/tmp)  
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)  
 Manage your all temporary directories easily
 

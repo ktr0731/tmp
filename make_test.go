@@ -22,7 +22,8 @@ func TestMakeDir(t *testing.T) {
 		success bool
 	}{
 		{
-			command: "tmp make",
+			command: "tmp make -n temp",
+			name:    "temp",
 			success: true,
 		},
 	}
