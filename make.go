@@ -9,8 +9,6 @@ import (
 	"github.com/urfave/cli"
 )
 
-const configFileName = "config"
-
 type item struct {
 	name string
 	dir  string

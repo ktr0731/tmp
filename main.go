@@ -9,8 +9,6 @@ import (
 	"github.com/urfave/cli"
 )
 
-const dirName = ".tmp-cli"
-
 func init() {
 	user, _ := user.Current()
 
