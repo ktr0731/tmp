@@ -21,6 +21,7 @@ var commands = []cli.Command{
 		Name:    "remove",
 		Aliases: []string{"r", "rm"},
 		Usage:   "Remove a target directory as passed by an argument",
+		Action:  removeDir,
 	},
 	{
 		Name:    "list",
