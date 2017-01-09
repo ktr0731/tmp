@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"strconv"
 
 	"github.com/urfave/cli"
 )
@@ -13,7 +14,11 @@ func removeDir(c *cli.Context) error {
 	}
 
 	for _, path := range c.Args() {
-		os.RemoveAll(path)
+		if n, err := strconv.Atoi(path); err == nil {
+			os.RemoveAll(PathList()[n]) // The path is indicated by number
+		} else {
+			os.RemoveAll(path) // Indicated by path name
+		}
 	}
 
 	return nil
