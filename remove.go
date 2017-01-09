@@ -19,6 +19,9 @@ func removeDir(c *cli.Context) error {
 
 		if n, err := strconv.Atoi(arg); err == nil {
 			pathList = PathList()
+			if len(pathList) <= n {
+				return fmt.Errorf("target index is not exists")
+			}
 			path = pathList[n] // The path is indicated by number
 		} else {
 			path = arg // Indicated by path name
