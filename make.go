@@ -35,8 +35,6 @@ func parseArguments(c *cli.Context) (*item, error) {
 		}
 	}
 
-	fmt.Println("path: " + path + ", name: " + name)
-
 	_, err := os.Stat(path)
 	if os.IsNotExist(err) {
 		err := os.MkdirAll(path, 0755)
