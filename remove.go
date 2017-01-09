@@ -13,12 +13,19 @@ func removeDir(c *cli.Context) error {
 		return fmt.Errorf("invalid argument")
 	}
 
-	for _, path := range c.Args() {
-		if n, err := strconv.Atoi(path); err == nil {
-			os.RemoveAll(PathList()[n]) // The path is indicated by number
+	pathList := []string{}
+	for _, arg := range c.Args() {
+		var path string
+
+		if n, err := strconv.Atoi(arg); err == nil {
+			pathList = PathList()
+			path = pathList[n] // The path is indicated by number
 		} else {
-			os.RemoveAll(path) // Indicated by path name
+			path = arg // Indicated by path name
 		}
+
+		os.RemoveAll(path)
+		unregister(path)
 	}
 
 	return nil

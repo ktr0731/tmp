@@ -1,7 +1,9 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
+	"io/ioutil"
 	"os"
 	"os/user"
 	"path/filepath"
@@ -34,8 +36,11 @@ func parseArguments(c *cli.Context) (*item, error) {
 	}
 
 	_, err = os.Stat(filepath.Join(path, name))
-	if err == nil {
+	switch {
+	case os.IsExist(err):
 		return nil, fmt.Errorf("target directory name " + filepath.Join(path, name) + " is exists")
+	case os.IsPermission(err):
+		return nil, fmt.Errorf("permission denied")
 	}
 
 	return &item{name: name, dir: path}, nil
@@ -46,7 +51,7 @@ func register(path string) error {
 
 	f, err := os.OpenFile(filepath.Join(user.HomeDir, dirName, configFileName), os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
 	if err != nil {
-		return fmt.Errorf("cannot register the directory: %s", err)
+		return fmt.Errorf("cannot open the configuration directory: %s", err)
 	}
 	defer f.Close()
 
@@ -55,6 +60,27 @@ func register(path string) error {
 		return fmt.Errorf("cannot get full path: %s", err)
 	}
 	f.WriteString(absPath + "\n")
+
+	return nil
+}
+
+func unregister(path string) error {
+	user, _ := user.Current()
+
+	configPath := filepath.Join(user.HomeDir, dirName, configFileName)
+
+	content, err := ioutil.ReadFile(configPath)
+	if err != nil {
+		return fmt.Errorf("cannot open the configuration directory: %s", err)
+	}
+
+	absPath, err := filepath.Abs(path)
+	if err != nil {
+		return fmt.Errorf("cannot get full path: %s", err)
+	}
+
+	fmt.Println(absPath)
+	ioutil.WriteFile(configPath, bytes.Replace(content, []byte(absPath), []byte(""), 1), 0644)
 
 	return nil
 }
