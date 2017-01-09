@@ -14,6 +14,12 @@ var commands = []cli.Command{
 		Aliases: []string{"r", "rm"},
 		Usage:   "Remove a target directory as passed by an argument",
 		Action:  removeDir,
+		Flags: []cli.Flag{
+			cli.BoolFlag{
+				Name:  "all",
+				Usage: "Remove `all` directories in tracking",
+			},
+		},
 	},
 	{
 		Name:    "list",
