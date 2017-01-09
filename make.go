@@ -7,6 +7,7 @@ import (
 	"os"
 	"os/user"
 	"path/filepath"
+	"strings"
 
 	"github.com/urfave/cli"
 )
@@ -22,11 +23,20 @@ func (i *item) path() string {
 
 func parseArguments(c *cli.Context) (*item, error) {
 	path := "."
+	name := "tmp"
+
 	if c.NArg() == 1 {
-		path = c.Args()[0]
+		path = filepath.Dir(c.Args()[0])
+
+		splitted := strings.Split(c.Args()[0], string(filepath.Separator))
+		name = splitted[len(splitted)-1]
+		if name == "" {
+			name = "tmp"
+		}
 	}
 
-	name := c.String("name")
+	fmt.Println("path: " + path + ", name: " + name)
+
 	_, err := os.Stat(path)
 	if os.IsNotExist(err) {
 		err := os.MkdirAll(path, 0755)
@@ -79,8 +89,7 @@ func unregister(path string) error {
 		return fmt.Errorf("cannot get full path: %s", err)
 	}
 
-	fmt.Println(absPath)
-	ioutil.WriteFile(configPath, bytes.Replace(content, []byte(absPath), []byte(""), 1), 0644)
+	ioutil.WriteFile(configPath, bytes.Replace(content, []byte(absPath+"\n"), []byte(""), 1), 0644)
 
 	return nil
 }
