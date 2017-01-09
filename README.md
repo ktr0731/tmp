@@ -1,5 +1,5 @@
 # tmp
-[![CircleCI](https://circleci.com/gh/lycoris0731/tmp.svg?style=svg&circle-token=b6ab9824b5dd9a252a19d98c64a3aaa31361f2db)](https://circleci.com/gh/lycoris0731/tmp)  
+[![CircleCI](https://circleci.com/gh/lycoris0731/tmp.svg?style=svg&circle-token=b6ab9824b5dd9a252a19d98c64a3aaa31361f2db)](https://circleci.com/gh/lycoris0731/tmp)
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)  
 Manage your all temporary directories easily
 
@@ -23,21 +23,27 @@ $ go get github.com/lycoris0731/tmp
 
 ## Usage
 Add new temporary directory(it is called `item`).  
-`-n` option decides item's name. If nothing, be used `tmp` for name.
+If there is no arguments, be used `tmp` for name.
 
 ``` sh
 $ tmp make 
 $ tmp mk
+$ tmp mk temp
+$ tmp mk ../
 ```
 
 Look all temporary directories.  
+If `-n` argument is passed, the command shows identifier number with paths.  
 
 ``` sh
 $ tmp list
 $ tmp ls
+$ tmp ls -n
 ```
 
-Remove the directory.
+Remove the directory.  
+You can pass arguments by full path, identifier number or both.  
+
 ``` sh
 $ tmp remove [target path] [target id]
 $ tmp rm [target path...] [target id...]
