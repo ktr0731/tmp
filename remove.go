@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"os"
 	"strconv"
@@ -26,7 +27,18 @@ func removeDir(c *cli.Context) error {
 				cleanDir(path)
 			}
 		} else {
-			return fmt.Errorf("invalid argument")
+			s := bufio.NewScanner(os.Stdin)
+			for s.Scan() {
+				pathList = append(pathList, s.Text())
+			}
+
+			if s.Err() != nil {
+				return fmt.Errorf("error while scanning path: %s", s.Err())
+			}
+
+			for _, path := range pathList {
+				cleanDir(path)
+			}
 		}
 	}
 

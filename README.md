@@ -47,6 +47,11 @@ $ tmp remove [target path] [target id]
 $ tmp rm [target path...] [target id...]
 ```
 
+You can use fuzzy search(fzf, fzy, etc..) also.  
+``` sh
+$ tmp ls | fzy | tmp rm
+```
+
 Remove all directries.
 ``` sh
 $ tmp rm --all

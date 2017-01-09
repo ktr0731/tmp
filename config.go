@@ -32,7 +32,7 @@ func loadConfig() error {
 }
 
 func contains(target string) bool {
-	for _, path := range pathList {
+	for _, path := range PathList() {
 		if path == target {
 			return true
 		}
