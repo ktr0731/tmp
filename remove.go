@@ -9,6 +9,10 @@ import (
 )
 
 func cleanDir(path string) {
+	if !contains(path) {
+		fmt.Printf("Invalid path: %s", path)
+		return
+	}
 	os.RemoveAll(path)
 	unregister(path)
 }

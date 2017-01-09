@@ -3,8 +3,6 @@
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)  
 Manage your all temporary directories easily
 
-===
-
 ## Description  
 When we want to experiments, tests, and so on, we'll create temporary directory.  
 However, almost temporary directories are not deleted that became unnecessary.  
