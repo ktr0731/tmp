@@ -33,4 +33,10 @@ var commands = []cli.Command{
 			},
 		},
 	},
+	{
+		Name:    "move",
+		Aliases: []string{"mv"},
+		Usage:   "Move temporary directory",
+		Action:  move,
+	},
 }
